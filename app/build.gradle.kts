@@ -72,4 +72,6 @@ dependencies {
     implementation(libs.hilt.compose)
     ksp(libs.hilt.compiler.ksp)
 
+    implementation("androidx.core:core-splashscreen:1.0.0")
+
 }
