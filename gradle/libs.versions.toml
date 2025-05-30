@@ -14,6 +14,7 @@ ksp = "2.0.21-1.0.27"
 hilt = "2.51.1"
 hilt-compose = "1.2.0"
 
+splashscreen = "1.0.1"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -44,6 +45,8 @@ hilt-android = { group = "com.google.dagger", name = "hilt-android" , version.re
 hilt-compiler-ksp = { group = "com.google.dagger", name = "hilt-compiler" , version.ref = "hilt"}
 hilt-compose = { group = "androidx.hilt", name = "hilt-navigation-compose", version.ref = "hilt-compose" }
 
+#SPLASHSCREEN
+splashscreen = { group = "androidx.core", name = "core-splashscreen", version.ref = "splashscreen"}
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
