@@ -1,4 +1,4 @@
-package cz.mendelu.todo.ui.elements
+package com.mendelu.xnovotn1.beerbook.ui.elements
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column

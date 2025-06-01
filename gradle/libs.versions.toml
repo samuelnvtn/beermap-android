@@ -15,6 +15,7 @@ hilt = "2.51.1"
 hilt-compose = "1.2.0"
 
 splashscreen = "1.0.1"
+lifecycleRuntimeComposeAndroid = "2.9.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -47,6 +48,7 @@ hilt-compose = { group = "androidx.hilt", name = "hilt-navigation-compose", vers
 
 #SPLASHSCREEN
 splashscreen = { group = "androidx.core", name = "core-splashscreen", version.ref = "splashscreen"}
+androidx-lifecycle-runtime-compose-android = { group = "androidx.lifecycle", name = "lifecycle-runtime-compose-android", version.ref = "lifecycleRuntimeComposeAndroid" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

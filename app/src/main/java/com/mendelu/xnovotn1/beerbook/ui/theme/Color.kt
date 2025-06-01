@@ -2,6 +2,11 @@ package com.mendelu.xnovotn1.beerbook.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
+val BarColor = Color(0xFF000000)
+val Black = Color(0xFF000000)
+val SofterBlack = Color(0xFF0A0A0A)
+val DarkPurple = Color(0xFF49454F)
+
 val Purple80 = Color(0xFFD0BCFF)
 val PurpleGrey80 = Color(0xFFCCC2DC)
 val Pink80 = Color(0xFFEFB8C8)

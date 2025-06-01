@@ -3,7 +3,7 @@ package com.mendelu.xnovotn1.beerbook.navigation
 import androidx.navigation.NavController
 
 class NavigationRouterImpl(private val navController: NavController) : INavigationRouter {
-    override fun navigateToAddEditTask(id: Long?) {
+    override fun navigateToAddEditBeer(id: Long?) {
         if (id != null) {
             navController.navigate("${Destination.AddEditBeerScreen.route}/${id}")
         } else {
@@ -14,6 +14,10 @@ class NavigationRouterImpl(private val navController: NavController) : INavigati
 
     override fun navigateToList() {
         navController.navigate(Destination.BeersListScreen.route)
+    }
+
+    override fun navigateToSettings() {
+        TODO("Not yet implemented")
     }
 
     override fun returnBack() {

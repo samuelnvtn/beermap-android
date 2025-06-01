@@ -8,7 +8,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import androidx.navigation.NavType
-
+import com.mendelu.xnovotn1.beerbook.BeersListScreen
 
 
 @Composable
@@ -23,7 +23,7 @@ fun NavGraph(
     NavHost(navController = navHostController, startDestination = startDestination) {
 
         composable(route = Destination.BeersListScreen.route) {
-            //BeersListScreen(navRouter)
+            BeersListScreen(navRouter)
         }
 
         composable(route = "${Destination.AddEditBeerScreen.route}/{id}",
