@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
     <application
         android:name="com.mendelu.xnovotn1.beerbook.BeerApp"
         android:allowBackup="true"
@@ -13,6 +16,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BeerBook"
         tools:targetApi="31">
+        <meta-data android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyC0OTiwAcTtmI7rCH90N2m0IhR7Lk5RIRA"/>
         <activity
             android:name="com.mendelu.xnovotn1.beerbook.MainActivity"
             android:exported="true"

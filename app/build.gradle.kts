@@ -75,4 +75,10 @@ dependencies {
 
     // Splashscreen
     implementation(libs.splashscreen)
+
+    //Maps
+    implementation(libs.googlemap)
+    implementation(libs.googlemap.compose)
+    implementation(libs.googlemap.foundation)
+
 }

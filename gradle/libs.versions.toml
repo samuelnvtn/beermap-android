@@ -17,6 +17,11 @@ hilt-compose = "1.2.0"
 splashscreen = "1.0.1"
 lifecycleRuntimeComposeAndroid = "2.9.0"
 
+googlemap = "2.7.2"
+googlemap_compose = "19.0.0"
+googlemap_foundation = "1.7.8"
+
+
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -49,6 +54,12 @@ hilt-compose = { group = "androidx.hilt", name = "hilt-navigation-compose", vers
 #SPLASHSCREEN
 splashscreen = { group = "androidx.core", name = "core-splashscreen", version.ref = "splashscreen"}
 androidx-lifecycle-runtime-compose-android = { group = "androidx.lifecycle", name = "lifecycle-runtime-compose-android", version.ref = "lifecycleRuntimeComposeAndroid" }
+
+#MAPS
+googlemap = { group = "com.google.maps.android", name = "maps-compose", version.ref = "googlemap" }
+googlemap-compose = { group = "com.google.android.gms", name = "play-services-maps", version.ref = "googlemap_compose" }
+googlemap-foundation = { group = "androidx.compose.foundation", name = "foundation", version.ref = "googlemap_foundation" }
+
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
