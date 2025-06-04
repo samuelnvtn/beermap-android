@@ -12,13 +12,18 @@ import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import com.google.accompanist.permissions.ExperimentalPermissionsApi
+import com.google.accompanist.permissions.isGranted
+import com.google.accompanist.permissions.rememberPermissionState
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.compose.GoogleMap
+import com.google.maps.android.compose.MapProperties
 import com.google.maps.android.compose.MapUiSettings
 import com.google.maps.android.compose.MapsComposeExperimentalApi
 import com.google.maps.android.compose.rememberCameraPositionState
@@ -65,22 +70,16 @@ fun MapScreen(
         },
         content = {
             MapScreenContent(
-                //latitude = state.value.latitude,
-                //longitude = state.value.longitude,
-                //actions = viewModel,*/
-                paddingValues = it,
+                paddingValues = it
             )}
     )
 
 }
 
-@OptIn(MapsComposeExperimentalApi::class)
+@OptIn(MapsComposeExperimentalApi::class, ExperimentalPermissionsApi::class)
 @Composable
 fun MapScreenContent(
-    paddingValues: PaddingValues,
-    //latitude: Double,
-    //longitude: Double,
-    //actions: MapActions,
+    paddingValues: PaddingValues
     ) {
 
     val cameraPositionState = rememberCameraPositionState {
@@ -91,9 +90,18 @@ fun MapScreenContent(
         mutableStateOf(
             MapUiSettings(
                 zoomControlsEnabled = false,
-                mapToolbarEnabled = false
+                mapToolbarEnabled = false,
+                myLocationButtonEnabled = true
             )
         )
+    }
+
+    val locationPermissionState = rememberPermissionState(android.Manifest.permission.ACCESS_FINE_LOCATION)
+
+    LaunchedEffect(Unit) {
+        if (!locationPermissionState.status.isGranted) {
+            locationPermissionState.launchPermissionRequest()
+        }
     }
 
     Box(
@@ -104,7 +112,8 @@ fun MapScreenContent(
         GoogleMap(
             modifier = Modifier.fillMaxHeight(),
             uiSettings = mapUiSettings,
-            cameraPositionState = cameraPositionState
+            cameraPositionState = cameraPositionState,
+            properties = MapProperties(isMyLocationEnabled = locationPermissionState.status.isGranted)
         ) {
         }
     }
