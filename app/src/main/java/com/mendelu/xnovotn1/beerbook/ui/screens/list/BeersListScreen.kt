@@ -1,7 +1,5 @@
-package com.mendelu.xnovotn1.beerbook
+package com.mendelu.xnovotn1.beerbook.ui.screens.list
 
-import android.text.format.DateUtils.formatDateTime
-import android.widget.RatingBar
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -31,7 +29,6 @@ import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -42,6 +39,8 @@ import com.mendelu.xnovotn1.beerbook.navigation.INavigationRouter
 import com.mendelu.xnovotn1.beerbook.ui.elements.BaseScreen
 import com.mendelu.xnovotn1.beerbook.ui.elements.BottomNavBar
 import com.mendelu.xnovotn1.beerbook.ui.elements.PlaceholderScreenContent
+import com.mendelu.xnovotn1.beerbook.ui.theme.buttonColor
+import com.mendelu.xnovotn1.beerbook.ui.theme.textColor
 import java.time.Instant
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
@@ -99,7 +98,8 @@ fun BeersListScreen(
         floatingActionButton = {
             FloatingActionButton(onClick = {
                 navigation.navigateToAddEditBeer(null)
-            }) {
+            }, containerColor = buttonColor(), contentColor = textColor()
+            ) {
                 Icon(imageVector = Icons.Default.Add, contentDescription = null)
             }
         }

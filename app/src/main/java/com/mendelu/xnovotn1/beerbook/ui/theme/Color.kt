@@ -7,10 +7,12 @@ import androidx.compose.ui.graphics.Color
 //LightTheme
 val lightBar = Color(0xFFFE7606)
 val lightButton = Color(0xFFFE7606)
+val lightTextColor = Color(0xA1000000)
 
 //DarkTheme
 val darkBar = Color(0xFF000000)
 val darkButton = Color(0xFF49454F)
+val darkTextColor = Color(0xFFFFFFFF)
 
 val Black = Color(0xFF000000)
 val SofterBlack = Color(0xFF0A0A0A)
@@ -25,8 +27,6 @@ val Purple40 = Color(0xFF6650a4)
 val PurpleGrey40 = Color(0xFF625b71)
 val Pink40 = Color(0xFF7D5260)
 
-val lightTextColor = Color(0xA1007075)
-val darkTextColor = Color(0xA1007075)
 
 @Composable
 fun textColor() = if (isSystemInDarkTheme()) darkTextColor else lightTextColor

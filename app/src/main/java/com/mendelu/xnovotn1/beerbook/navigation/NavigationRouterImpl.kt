@@ -20,6 +20,10 @@ class NavigationRouterImpl(private val navController: NavController) : INavigati
         TODO("Not yet implemented")
     }
 
+    override fun navigateToMap() {
+        navController.navigate(Destination.MapScreen.route)
+    }
+
     override fun returnBack() {
         navController.popBackStack()
     }

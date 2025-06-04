@@ -58,7 +58,7 @@ fun BaseScreen(
             }
         },
         floatingActionButton = floatingActionButton
-        //prohodit s tou beerlistscreen
+
     )
     {
         if (showLoading){

@@ -1,4 +1,4 @@
-package com.mendelu.xnovotn1.beerbook
+package com.mendelu.xnovotn1.beerbook.ui.screens.list
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

@@ -1,4 +1,4 @@
-package com.mendelu.xnovotn1.beerbook
+package com.mendelu.xnovotn1.beerbook.ui.screens.list
 
 import com.mendelu.xnovotn1.beerbook.database.Beer
 

@@ -4,5 +4,6 @@ interface INavigationRouter {
     fun navigateToAddEditBeer(id: Long?)
     fun navigateToList()
     fun navigateToSettings()
+    fun navigateToMap()
     fun returnBack()
 }

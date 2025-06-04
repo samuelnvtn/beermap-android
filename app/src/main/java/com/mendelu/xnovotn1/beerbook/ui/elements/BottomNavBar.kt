@@ -15,6 +15,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import com.mendelu.xnovotn1.beerbook.navigation.Destination
 import com.mendelu.xnovotn1.beerbook.navigation.INavigationRouter
 import com.mendelu.xnovotn1.beerbook.ui.theme.barColor
+import com.mendelu.xnovotn1.beerbook.ui.theme.textColor
 
 data class BottomNavItem(val icon: ImageVector, val label: String, val destination: Destination)
 
@@ -31,7 +32,8 @@ fun BottomNavBar(
     )
 
     NavigationBar(
-        containerColor = barColor()
+        containerColor = barColor(),
+        contentColor = textColor()
     ) {
         items.forEach { item ->
             NavigationBarItem(
@@ -39,7 +41,7 @@ fun BottomNavBar(
                 onClick = {
                     when (item.destination) {
                         Destination.BeersListScreen -> navigation.navigateToList()
-                        Destination.MapScreen -> {/* TODO */}
+                        Destination.MapScreen -> navigation.navigateToMap()
                         Destination.CalendarScreen -> {/* TODO */}
                         Destination.StatsScreen -> {/* TODO */}
                         else -> {}
