@@ -16,6 +16,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.isGranted
@@ -29,6 +30,7 @@ import com.google.maps.android.compose.MapsComposeExperimentalApi
 import com.google.maps.android.compose.rememberCameraPositionState
 import com.mendelu.xnovotn1.beerbook.navigation.Destination
 import com.mendelu.xnovotn1.beerbook.navigation.INavigationRouter
+import com.mendelu.xnovotn1.beerbook.permissions.LocationPermissionHandler
 import com.mendelu.xnovotn1.beerbook.ui.elements.BaseScreen
 import com.mendelu.xnovotn1.beerbook.ui.elements.BottomNavBar
 import com.mendelu.xnovotn1.beerbook.ui.theme.buttonColor
@@ -83,7 +85,7 @@ fun MapScreenContent(
     ) {
 
     val cameraPositionState = rememberCameraPositionState {
-        position = CameraPosition.fromLatLngZoom(LatLng(51.5074, -0.1278), 10f)
+        position = CameraPosition.fromLatLngZoom(LatLng(49.2098028, 16.6145219), 10f)
     }
 
     val mapUiSettings by remember {
@@ -96,13 +98,12 @@ fun MapScreenContent(
         )
     }
 
-    val locationPermissionState = rememberPermissionState(android.Manifest.permission.ACCESS_FINE_LOCATION)
+    var hasLocationPermission by remember { mutableStateOf(false) }
 
-    LaunchedEffect(Unit) {
-        if (!locationPermissionState.status.isGranted) {
-            locationPermissionState.launchPermissionRequest()
-        }
-    }
+    LocationPermissionHandler(
+        onPermissionGranted = { hasLocationPermission = true },
+        onPermissionDenied = { hasLocationPermission = false }
+    )
 
     Box(
         Modifier
@@ -113,7 +114,7 @@ fun MapScreenContent(
             modifier = Modifier.fillMaxHeight(),
             uiSettings = mapUiSettings,
             cameraPositionState = cameraPositionState,
-            properties = MapProperties(isMyLocationEnabled = locationPermissionState.status.isGranted)
+            properties = MapProperties(isMyLocationEnabled = hasLocationPermission)
         ) {
         }
     }

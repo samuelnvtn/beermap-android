@@ -16,5 +16,7 @@ data class Beer(
     var longitude: Double,
     @PrimaryKey(autoGenerate = true)
     var id: Long? = null,
-    var beerState: Boolean = false
-)
+    var beerState: Boolean = false,
+){
+    fun isDefault(): Boolean = this == Beer("", Instant.now(),"","",0.0f,"", 0.0, 0.0)
+}

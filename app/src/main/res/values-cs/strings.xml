@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Beer Map</string>
+    <string name="cannot_be_empty">Cannot be empty</string>
+    <string name="add_beer">Přidat pivo</string>
+    <string name="save">Uložit</string>
+    <string name="beer_name">Jméno piva</string>
+</resources>

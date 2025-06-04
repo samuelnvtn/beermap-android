@@ -8,6 +8,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import androidx.navigation.NavType
+import com.mendelu.xnovotn1.beerbook.ui.screens.addedit.AddEditBeerScreen
 import com.mendelu.xnovotn1.beerbook.ui.screens.list.BeersListScreen
 import com.mendelu.xnovotn1.beerbook.ui.screens.map.MapScreen
 
@@ -40,7 +41,7 @@ fun NavGraph(
         }
 
         composable(route = Destination.AddEditBeerScreen.route) {
-            //AddEditBeerScreen(navRouter, null)
+            AddEditBeerScreen(navRouter, null)
         }
 
         composable(route = Destination.MapScreen.route) {
