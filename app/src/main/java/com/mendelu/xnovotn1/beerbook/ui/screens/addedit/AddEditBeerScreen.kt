@@ -1,12 +1,16 @@
 package com.mendelu.xnovotn1.beerbook.ui.screens.addedit
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.Star
+import androidx.compose.material.icons.outlined.Star
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -17,10 +21,10 @@ import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color.Companion.Green
-import androidx.compose.ui.graphics.Color.Companion.Red
-import androidx.compose.ui.graphics.Color.Companion.Yellow
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.mendelu.xnovotn1.beerbook.R
@@ -28,10 +32,8 @@ import com.mendelu.xnovotn1.beerbook.navigation.Destination
 import com.mendelu.xnovotn1.beerbook.navigation.INavigationRouter
 import com.mendelu.xnovotn1.beerbook.ui.elements.BaseScreen
 import com.mendelu.xnovotn1.beerbook.ui.elements.BottomNavBar
-import com.mendelu.xnovotn1.beerbook.ui.theme.DarkPurple
 import com.mendelu.xnovotn1.beerbook.ui.theme.basicMargin
 import com.mendelu.xnovotn1.beerbook.ui.theme.buttonColor
-import com.mendelu.xnovotn1.beerbook.ui.theme.textColor
 
 @Composable
 fun AddEditBeerScreen(
@@ -106,7 +108,7 @@ fun AddEditBeerScreenContent(
             },
             value = data.beer.name,
             onValueChange = {
-                actions.onTextChanged(it)
+                actions.onNameChange(it)
             },
             isError = data.beerTextError != null,
             supportingText = {
@@ -121,6 +123,53 @@ fun AddEditBeerScreenContent(
                 )
         )
 
+        OutlinedTextField(
+            modifier = Modifier.fillMaxWidth(),
+            label = {
+                Text(text = "Place")
+            },
+            value = data.beer.locationName,
+            onValueChange = {
+                actions.onPlaceChange(it)
+            },
+            isError = data.beerTextError != null,
+            supportingText = {
+                if (data.beerTextError != null) {
+                    Text(text = stringResource(data.beerTextError!!))
+                    //Text(text = context.getString(data.taskTextError!!))
+                }
+            },
+            colors = TextFieldDefaults.outlinedTextFieldColors(
+                containerColor = buttonColor(),
+                //todo: barvicky
+            )
+        )
+
+        data.beer.description?.let {
+            OutlinedTextField(
+                modifier = Modifier.fillMaxWidth(),
+                label = {
+                    Text(text = "Description")
+                },
+                value = it,
+                onValueChange = {
+                    actions.onDescChange(it)
+                },
+                isError = data.beerTextError != null,
+                supportingText = {
+                    if (data.beerTextError != null) {
+                        Text(text = stringResource(data.beerTextError!!))
+                        //Text(text = context.getString(data.taskTextError!!))
+                    }
+                },
+                colors = TextFieldDefaults.outlinedTextFieldColors(
+                    containerColor = buttonColor(),
+                    //todo: barvicky
+                )
+            )
+        }
+
+
         Button(
             modifier = Modifier.fillMaxWidth(), onClick = {
                 actions.saveBeer()
@@ -129,4 +178,3 @@ fun AddEditBeerScreenContent(
         }
     }
 }
-

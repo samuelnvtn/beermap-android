@@ -17,6 +17,7 @@ import androidx.compose.material.icons.filled.Place
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material.icons.filled.Star
+import androidx.compose.material.icons.sharp.Star
 import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
@@ -199,7 +200,7 @@ fun formatDateTime(timestamp: Instant): String {
 fun RatingBar(rating: Float, modifier: Modifier = Modifier) {
     Row(modifier = modifier) {
         for (i in 1..5) {
-            val icon = if (i <= rating.toInt()) Icons.Filled.Star else Icons.Filled.ShoppingCart
+            val icon = if (i <= rating.toInt()) Icons.Filled.Star else Icons.Sharp.Star
             //todo: icon
             Icon(
                 imageVector = icon,

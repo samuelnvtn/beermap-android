@@ -20,13 +20,37 @@ class AddEditBeerViewModel @Inject constructor(private val repository: IBeersLoc
 
     val addEditBeerUIState = _addEditBeerUIState.asStateFlow()
 
-    override fun onTextChanged(text: String) {
+    override fun onNameChange(text: String) {
         _addEditBeerUIState.value =
             _addEditBeerUIState.value.copy(
                 beer = _addEditBeerUIState.value.beer.copy(name = text),
                 beerTextError = null
             )
 
+    }
+
+    override fun onPlaceChange(text: String) {
+        _addEditBeerUIState.value =
+            _addEditBeerUIState.value.copy(
+                beer = _addEditBeerUIState.value.beer.copy(locationName = text),
+                beerTextError = null
+            )
+    }
+
+    override fun onDescChange(text: String) {
+        _addEditBeerUIState.value =
+            _addEditBeerUIState.value.copy(
+                beer = _addEditBeerUIState.value.beer.copy(description = text),
+                beerTextError = null
+            )
+    }
+
+    override fun onRatingChange(stars: Float) {
+        _addEditBeerUIState.value =
+            _addEditBeerUIState.value.copy(
+                beer = _addEditBeerUIState.value.beer.copy(rating = stars),
+                beerTextError = null
+            )
     }
 
     override fun saveBeer() {
