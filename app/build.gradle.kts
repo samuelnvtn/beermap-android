@@ -82,5 +82,4 @@ dependencies {
     implementation(libs.googlemap.foundation)
 
     implementation(libs.accompanist.permissions)
-
 }

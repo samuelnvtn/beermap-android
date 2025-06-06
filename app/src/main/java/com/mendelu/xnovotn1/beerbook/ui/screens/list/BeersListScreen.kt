@@ -30,10 +30,14 @@ import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.mendelu.xnovotn1.beerbook.R
 import com.mendelu.xnovotn1.beerbook.database.Beer
 import com.mendelu.xnovotn1.beerbook.navigation.Destination
 import com.mendelu.xnovotn1.beerbook.navigation.INavigationRouter
@@ -144,48 +148,57 @@ fun BeerRow(beer: Beer) {
             Text(
                 text = beer.name,
                 style = MaterialTheme.typography.titleMedium,
-                fontWeight = FontWeight.Bold
+                fontWeight = FontWeight.Bold,
+                color = textColor()
             )
             Text(
                 text = formatDateTime(beer.timestamp),
-                style = MaterialTheme.typography.bodySmall
+                style = MaterialTheme.typography.bodySmall,
+                color = textColor()
             )
         }
 
         Spacer(modifier = Modifier.height(4.dp))
 
-        RatingBar(
-            rating = beer.rating,
-            modifier = Modifier.padding(vertical = 4.dp)
-        )
-
-        Spacer(modifier = Modifier.height(4.dp))
-
-        if (!beer.description.isNullOrBlank()) {
-            Text(
-                text = beer.description ?: "",
-                style = MaterialTheme.typography.bodyMedium
-            )
-        }
-
-        Spacer(modifier = Modifier.height(6.dp))
 
         Row(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Icon(
+                tint = textColor(),
                 imageVector = Icons.Default.Place,
                 contentDescription = null,
                 modifier = Modifier.size(16.dp)
             )
             Spacer(modifier = Modifier.width(4.dp))
             Text(
+                color = textColor(),
                 text = beer.locationName,
                 style = MaterialTheme.typography.bodySmall,
                 fontWeight = FontWeight.SemiBold
             )
         }
 
+        Spacer(modifier = Modifier.height(4.dp))
+
+
+        RatingBar(
+            rating = beer.rating,
+            modifier = Modifier.padding(vertical = 4.dp)
+        )
+
+
+        Spacer(modifier = Modifier.height(4.dp))
+
+            if (!beer.description.isNullOrBlank()) {
+                Text(
+                    text = beer.description ?: "",
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = textColor(),
+                    maxLines = 2,
+                    overflow = TextOverflow.Ellipsis
+                )
+            }
         Divider(modifier = Modifier.padding(top = 12.dp))
     }
 }
@@ -198,11 +211,19 @@ fun formatDateTime(timestamp: Instant): String {
 
 @Composable
 fun RatingBar(rating: Float, modifier: Modifier = Modifier) {
+    val starHalf = ImageVector.vectorResource(id = R.drawable.star_half)
+    val outlinedStar = ImageVector.vectorResource(id = R.drawable.outstar)
+
     Row(modifier = modifier) {
         for (i in 1..5) {
-            val icon = if (i <= rating.toInt()) Icons.Filled.Star else Icons.Sharp.Star
-            //todo: icon
+            val current = i.toFloat()
+            val icon = when {
+                rating >= current -> Icons.Filled.Star
+                rating >= current - 0.5f -> starHalf
+                else -> outlinedStar
+            }
             Icon(
+                tint = textColor(),
                 imageVector = icon,
                 contentDescription = null,
                 modifier = Modifier.size(20.dp)

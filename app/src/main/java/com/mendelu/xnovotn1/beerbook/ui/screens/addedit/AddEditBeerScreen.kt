@@ -1,12 +1,18 @@
 package com.mendelu.xnovotn1.beerbook.ui.screens.addedit
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.selection.selectable
+import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Star
@@ -20,8 +26,17 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableDoubleStateOf
+import androidx.compose.runtime.mutableFloatStateOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
@@ -32,8 +47,12 @@ import com.mendelu.xnovotn1.beerbook.navigation.Destination
 import com.mendelu.xnovotn1.beerbook.navigation.INavigationRouter
 import com.mendelu.xnovotn1.beerbook.ui.elements.BaseScreen
 import com.mendelu.xnovotn1.beerbook.ui.elements.BottomNavBar
+import com.mendelu.xnovotn1.beerbook.ui.elements.RatingBar
 import com.mendelu.xnovotn1.beerbook.ui.theme.basicMargin
 import com.mendelu.xnovotn1.beerbook.ui.theme.buttonColor
+import com.mendelu.xnovotn1.beerbook.ui.theme.textColor
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter
 
 @Composable
 fun AddEditBeerScreen(
@@ -126,6 +145,30 @@ fun AddEditBeerScreenContent(
         OutlinedTextField(
             modifier = Modifier.fillMaxWidth(),
             label = {
+                Text(text = stringResource(R.string.beer_dt))
+            },
+            value = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")
+                .withZone(ZoneId.systemDefault())
+                .format(data.beer.timestamp),
+            onValueChange = {
+                actions.onNameChange(it)
+            },
+            isError = data.beerTextError != null,
+            supportingText = {
+                if (data.beerTextError != null) {
+                    Text(text = stringResource(data.beerTextError!!))
+                    //Text(text = context.getString(data.taskTextError!!))
+                }
+            },
+            colors = TextFieldDefaults.outlinedTextFieldColors(
+                containerColor = buttonColor(),
+                //todo: barvicky
+            )
+        )
+
+        OutlinedTextField(
+            modifier = Modifier.fillMaxWidth(),
+            label = {
                 Text(text = "Place")
             },
             value = data.beer.locationName,
@@ -155,13 +198,6 @@ fun AddEditBeerScreenContent(
                 onValueChange = {
                     actions.onDescChange(it)
                 },
-                isError = data.beerTextError != null,
-                supportingText = {
-                    if (data.beerTextError != null) {
-                        Text(text = stringResource(data.beerTextError!!))
-                        //Text(text = context.getString(data.taskTextError!!))
-                    }
-                },
                 colors = TextFieldDefaults.outlinedTextFieldColors(
                     containerColor = buttonColor(),
                     //todo: barvicky
@@ -169,6 +205,11 @@ fun AddEditBeerScreenContent(
             )
         }
 
+        RatingBar(
+            rating = data.beer.rating,
+            onRatingChanged = { actions.onRatingChange(it) },
+            modifier = Modifier.padding(vertical = 16.dp)
+        )
 
         Button(
             modifier = Modifier.fillMaxWidth(), onClick = {

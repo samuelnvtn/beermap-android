@@ -18,5 +18,5 @@ data class Beer(
     var id: Long? = null,
     var beerState: Boolean = false,
 ){
-    fun isDefault(): Boolean = this == Beer("", Instant.now(),"","",0.0f,"", 0.0, 0.0)
+    fun isDefault(): Boolean = this == Beer("", Instant.now(),"","",0f,"", 0.0, 0.0)
 }

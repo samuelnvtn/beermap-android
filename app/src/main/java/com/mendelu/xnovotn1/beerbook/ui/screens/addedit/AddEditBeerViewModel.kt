@@ -45,11 +45,11 @@ class AddEditBeerViewModel @Inject constructor(private val repository: IBeersLoc
             )
     }
 
+
     override fun onRatingChange(stars: Float) {
         _addEditBeerUIState.value =
             _addEditBeerUIState.value.copy(
-                beer = _addEditBeerUIState.value.beer.copy(rating = stars),
-                beerTextError = null
+                beer = _addEditBeerUIState.value.beer.copy(rating = stars)
             )
     }
 
