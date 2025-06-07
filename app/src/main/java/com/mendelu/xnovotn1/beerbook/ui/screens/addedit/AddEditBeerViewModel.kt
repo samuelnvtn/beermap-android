@@ -21,23 +21,25 @@ class AddEditBeerViewModel @Inject constructor(private val repository: IBeersLoc
 
     val addEditBeerUIState = _addEditBeerUIState.asStateFlow()
 
+    private val _isBeerLoaded = MutableStateFlow(false)
+    val isBeerLoaded = _isBeerLoaded.asStateFlow()
 
-    fun loadBeer(id: Long?){
-        if (_addEditBeerUIState.value.beer.isDefault()) {
+    fun loadBeer(id: Long?) {
+        viewModelScope.launch {
             if (id != null) {
-                viewModelScope.launch {
-                    _addEditBeerUIState.value = _addEditBeerUIState.value.copy(
-                        beer = repository.getById(id),
-                        loading = false
-                    )
-
-                }
+                val beer = repository.getById(id)
+                _addEditBeerUIState.value = _addEditBeerUIState.value.copy(
+                    beer = beer,
+                    loading = false
+                )
             } else {
                 _addEditBeerUIState.value = _addEditBeerUIState.value.copy(
                     beer = Beer("", Instant.now(),"","",0.0f,"", 0.0, 0.0),
                     loading = false
                 )
             }
+            _isBeerLoaded.value = true
+            println("loadBeer done, id: $id")
         }
     }
 

@@ -1,5 +1,6 @@
 package com.mendelu.xnovotn1.beerbook.ui.elements
 
+import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.material.icons.Icons

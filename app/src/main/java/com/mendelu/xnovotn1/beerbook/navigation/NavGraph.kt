@@ -42,7 +42,9 @@ fun NavGraph(
             )
         ){
             val id = it.arguments?.getLong("id")
-            AddEditBeerScreen(navRouter, id)
+            if(id != null) {
+                AddEditBeerScreen(navRouter, id)
+            }
         }
 
 

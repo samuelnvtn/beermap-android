@@ -46,6 +46,8 @@ import com.mendelu.xnovotn1.beerbook.ui.elements.BaseScreen
 import com.mendelu.xnovotn1.beerbook.ui.elements.BottomNavBar
 import com.mendelu.xnovotn1.beerbook.ui.elements.PlaceholderScreenContent
 import com.mendelu.xnovotn1.beerbook.ui.theme.buttonColor
+import com.mendelu.xnovotn1.beerbook.ui.theme.darkTextColor
+import com.mendelu.xnovotn1.beerbook.ui.theme.lightButton
 import com.mendelu.xnovotn1.beerbook.ui.theme.textColor
 import java.time.Instant
 import java.time.ZoneId
@@ -105,7 +107,7 @@ fun BeersListScreen(
         floatingActionButton = {
             FloatingActionButton(onClick = {
                 navigation.navigateToAddEditBeer(id = null)
-            }, containerColor = buttonColor(), contentColor = textColor()
+            }, containerColor = lightButton, contentColor = darkTextColor
             ) {
                 Icon(imageVector = Icons.Default.Add, contentDescription = null)
             }

@@ -1,10 +1,19 @@
 <resources>
     <string name="app_name">Beer Map</string>
-    <string name="cannot_be_empty">Cannot be empty</string>
+    <string name="cannot_be_empty">Povinné pole</string>
     <string name="add_beer">Přidat pivo</string>
     <string name="save">Uložit</string>
     <string name="beer_name">Jméno piva</string>
     <string name="beer_dt">Datum a čas</string>
     <string name="beer_rating">Hodnocení</string>
+    <string name="beer_desc">Popisek</string>
+    <string name="beer_place">Místo</string>
+    <string name="cancel">Zrušit</string>
+    <string name="next">Další</string>
+
+
+
+
+
 
 </resources>

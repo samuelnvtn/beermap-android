@@ -9,12 +9,17 @@ import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import com.mendelu.xnovotn1.beerbook.navigation.Destination
 import com.mendelu.xnovotn1.beerbook.navigation.INavigationRouter
 import com.mendelu.xnovotn1.beerbook.ui.theme.barColor
+import com.mendelu.xnovotn1.beerbook.ui.theme.buttonColor
+import com.mendelu.xnovotn1.beerbook.ui.theme.fieldColor
+import com.mendelu.xnovotn1.beerbook.ui.theme.lightButton
 import com.mendelu.xnovotn1.beerbook.ui.theme.textColor
 
 data class BottomNavItem(val icon: ImageVector, val label: String, val destination: Destination)
@@ -33,7 +38,6 @@ fun BottomNavBar(
 
     NavigationBar(
         containerColor = barColor(),
-        contentColor = textColor()
     ) {
         items.forEach { item ->
             NavigationBarItem(
@@ -49,7 +53,14 @@ fun BottomNavBar(
 
                 },
                 icon = { Icon(item.icon, contentDescription = item.label) },
-                label = { Text(item.label) }
+                label = { Text(item.label) },
+                colors = NavigationBarItemDefaults.colors(
+                    selectedIconColor = lightButton,
+                    selectedTextColor = lightButton,
+                    unselectedIconColor = textColor(),
+                    unselectedTextColor = textColor(),
+                    indicatorColor = Color.Transparent
+                )
             )
         }
     }

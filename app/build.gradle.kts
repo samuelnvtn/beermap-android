@@ -84,4 +84,8 @@ dependencies {
     implementation(libs.googlemap.foundation)
 
     implementation(libs.accompanist.permissions)
+
+    
+    implementation("io.github.vanpra.compose-material-dialogs:datetime:0.9.0")
+    implementation ("com.kizitonwose.calendar:calendar-compose:0.4.1")
 }

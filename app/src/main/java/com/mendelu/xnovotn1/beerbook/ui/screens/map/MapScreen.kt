@@ -42,6 +42,8 @@ import com.mendelu.xnovotn1.beerbook.ui.elements.BottomNavBar
 import com.mendelu.xnovotn1.beerbook.ui.screens.list.BeersListUIState
 import com.mendelu.xnovotn1.beerbook.ui.screens.list.BeersListViewModel
 import com.mendelu.xnovotn1.beerbook.ui.theme.buttonColor
+import com.mendelu.xnovotn1.beerbook.ui.theme.darkTextColor
+import com.mendelu.xnovotn1.beerbook.ui.theme.lightButton
 import com.mendelu.xnovotn1.beerbook.ui.theme.textColor
 
 @Composable
@@ -90,7 +92,7 @@ fun MapScreen(
         floatingActionButton = {
             FloatingActionButton(onClick = {
                 navigation.navigateToAddEditBeer(null)
-            }, containerColor = buttonColor(), contentColor = textColor()
+            }, containerColor = lightButton, contentColor = darkTextColor
             ) {
                 Icon(imageVector = Icons.Default.Add, contentDescription = null)
             }

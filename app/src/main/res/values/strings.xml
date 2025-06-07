@@ -6,5 +6,9 @@
     <string name="beer_name">Beer name</string>
     <string name="beer_dt">Date &amp; time</string>
     <string name="beer_rating">Rating</string>
+    <string name="beer_desc">Description</string>
+    <string name="beer_place">Place</string>
+    <string name="cancel">Cancel</string>
+    <string name="next">Next</string>
 
 </resources>

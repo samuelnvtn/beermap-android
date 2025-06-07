@@ -73,7 +73,7 @@ fun DetailScreen(
             IconButton(onClick = {
                 beer.value?.let { loadedBeer ->
                     navigation.navigateToAddEditBeer(loadedBeer.id)
-                    println("Naviguju na editaci piva s id: $id")
+                    println("Naviguju na edit s id: $id")
                 }
             }) {
                 Icon(
