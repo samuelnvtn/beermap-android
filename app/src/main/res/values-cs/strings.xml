@@ -5,4 +5,6 @@
     <string name="save">Uložit</string>
     <string name="beer_name">Jméno piva</string>
     <string name="beer_dt">Datum a čas</string>
+    <string name="beer_rating">Hodnocení</string>
+
 </resources>

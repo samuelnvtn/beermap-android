@@ -37,7 +37,7 @@ fun NavGraph(
             )
         ){
             val id = it.arguments?.getLong("id")
-            //AddEditBeerScreen(navRouter, id)
+            AddEditBeerScreen(navRouter, id)
         }
 
         composable(route = Destination.AddEditBeerScreen.route) {

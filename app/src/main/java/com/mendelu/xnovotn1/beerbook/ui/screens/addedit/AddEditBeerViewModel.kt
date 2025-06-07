@@ -9,6 +9,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.suspendCancellableCoroutine
 import java.time.Instant
 import javax.inject.Inject
 
@@ -50,6 +51,20 @@ class AddEditBeerViewModel @Inject constructor(private val repository: IBeersLoc
         _addEditBeerUIState.value =
             _addEditBeerUIState.value.copy(
                 beer = _addEditBeerUIState.value.beer.copy(rating = stars)
+            )
+    }
+
+    override fun onTimestampChange(toInstant: Instant) {
+        _addEditBeerUIState.value =
+            _addEditBeerUIState.value.copy(
+                beer = _addEditBeerUIState.value.beer.copy(timestamp = toInstant)
+            )
+    }
+
+    override fun onLatLngChange(latitude: Double, longitude: Double) {
+        _addEditBeerUIState.value =
+            _addEditBeerUIState.value.copy(
+                beer = _addEditBeerUIState.value.beer.copy(latitude = latitude, longitude = longitude)
             )
     }
 

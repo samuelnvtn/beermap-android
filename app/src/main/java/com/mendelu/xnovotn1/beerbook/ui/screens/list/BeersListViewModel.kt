@@ -11,7 +11,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class BeersListViewModel @Inject constructor(private val repository: IBeersLocalRepository) : ViewModel(){
+class BeersListViewModel @Inject constructor(private val repository: IBeersLocalRepository) : ViewModel(), BeerListActions{
 
     private val _beerListUIState: MutableStateFlow<BeersListUIState> =
         MutableStateFlow(value = BeersListUIState.Default())
@@ -28,6 +28,12 @@ class BeersListViewModel @Inject constructor(private val repository: IBeersLocal
         }
     }
 
+    override fun changeBeerState(id: Long, state: Boolean) {
+        viewModelScope.launch {
+            repository.changeBeerState(id, state)
+        }
+
+    }
 
 
 }

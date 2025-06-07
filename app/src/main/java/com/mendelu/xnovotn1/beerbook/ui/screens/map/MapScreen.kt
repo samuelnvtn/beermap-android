@@ -14,10 +14,13 @@ import androidx.compose.material3.IconButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.isGranted
 import com.google.accompanist.permissions.rememberPermissionState
@@ -27,12 +30,17 @@ import com.google.maps.android.compose.GoogleMap
 import com.google.maps.android.compose.MapProperties
 import com.google.maps.android.compose.MapUiSettings
 import com.google.maps.android.compose.MapsComposeExperimentalApi
+import com.google.maps.android.compose.Marker
+import com.google.maps.android.compose.MarkerState
 import com.google.maps.android.compose.rememberCameraPositionState
+import com.mendelu.xnovotn1.beerbook.database.Beer
 import com.mendelu.xnovotn1.beerbook.navigation.Destination
 import com.mendelu.xnovotn1.beerbook.navigation.INavigationRouter
 import com.mendelu.xnovotn1.beerbook.permissions.LocationPermissionHandler
 import com.mendelu.xnovotn1.beerbook.ui.elements.BaseScreen
 import com.mendelu.xnovotn1.beerbook.ui.elements.BottomNavBar
+import com.mendelu.xnovotn1.beerbook.ui.screens.list.BeersListUIState
+import com.mendelu.xnovotn1.beerbook.ui.screens.list.BeersListViewModel
 import com.mendelu.xnovotn1.beerbook.ui.theme.buttonColor
 import com.mendelu.xnovotn1.beerbook.ui.theme.textColor
 
@@ -40,6 +48,26 @@ import com.mendelu.xnovotn1.beerbook.ui.theme.textColor
 fun MapScreen(
     navigation: INavigationRouter
 ){
+    val viewModel = hiltViewModel<MapViewModel>()
+
+    val state = viewModel.beerListUIState.collectAsStateWithLifecycle()
+
+    val beers = remember { mutableStateListOf<Beer>() }
+
+    state.value.let {
+        when (it) {
+            is BeersListUIState.Default -> {
+                viewModel.loadBeers()
+            }
+
+            is BeersListUIState.Success -> {
+                // dostal jsem seznam
+                beers.clear()
+                beers.addAll(it.beers)
+            }
+        }
+
+    }
 
     BaseScreen(
         bottomBarContent = {
@@ -72,7 +100,8 @@ fun MapScreen(
         },
         content = {
             MapScreenContent(
-                paddingValues = it
+                paddingValues = it,
+                beers = beers
             )}
     )
 
@@ -81,8 +110,9 @@ fun MapScreen(
 @OptIn(MapsComposeExperimentalApi::class, ExperimentalPermissionsApi::class)
 @Composable
 fun MapScreenContent(
-    paddingValues: PaddingValues
-    ) {
+    paddingValues: PaddingValues,
+    beers: List<Beer>
+) {
 
     val cameraPositionState = rememberCameraPositionState {
         position = CameraPosition.fromLatLngZoom(LatLng(49.2098028, 16.6145219), 10f)
@@ -116,6 +146,13 @@ fun MapScreenContent(
             cameraPositionState = cameraPositionState,
             properties = MapProperties(isMyLocationEnabled = hasLocationPermission)
         ) {
+            beers.forEach { beer ->
+                Marker(
+                    state = MarkerState(position = LatLng(beer.latitude, beer.longitude)),
+                    title = beer.name + " ⭐️ ${beer.rating}/5",
+                    snippet = "📍 ${beer.locationName}"
+                )
+            }
         }
     }
 }

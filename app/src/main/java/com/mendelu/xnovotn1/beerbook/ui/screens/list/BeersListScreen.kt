@@ -49,6 +49,7 @@ import com.mendelu.xnovotn1.beerbook.ui.theme.textColor
 import java.time.Instant
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
+import kotlin.math.acos
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -123,19 +124,27 @@ fun BeersListScreen(
 fun BeersListScreenContent(
     paddingValues: PaddingValues,
     beers: List<Beer>,
-    navigation: INavigationRouter
+    navigation: INavigationRouter,
 ){
     LazyColumn(modifier = Modifier.padding(paddingValues)) {
         beers.forEach { beer ->
             item {
-                BeerRow(beer)
+                BeerRow(
+                    beer,
+                    onRowClick = {
+
+                    }
+                )
             }
         }
     }
 }
 
 @Composable
-fun BeerRow(beer: Beer) {
+fun BeerRow(
+    beer: Beer,
+    onRowClick: () -> Unit
+) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
