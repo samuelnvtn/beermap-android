@@ -1,5 +1,6 @@
 package com.mendelu.xnovotn1.beerbook.ui.screens.list
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -103,7 +104,7 @@ fun BeersListScreen(
         topBarText = "Beers",
         floatingActionButton = {
             FloatingActionButton(onClick = {
-                navigation.navigateToAddEditBeer(null)
+                navigation.navigateToAddEditBeer(id = null)
             }, containerColor = buttonColor(), contentColor = textColor()
             ) {
                 Icon(imageVector = Icons.Default.Add, contentDescription = null)
@@ -127,11 +128,12 @@ fun BeersListScreenContent(
     navigation: INavigationRouter,
 ){
     LazyColumn(modifier = Modifier.padding(paddingValues)) {
-        beers.forEach { beer ->
+        beers.forEach {
             item {
                 BeerRow(
-                    beer,
+                    beer = it,
                     onRowClick = {
+                        it.id?.let { it1 -> navigation.navigateToDetail(it1) }
 
                     }
                 )
@@ -148,6 +150,7 @@ fun BeerRow(
     Column(
         modifier = Modifier
             .fillMaxWidth()
+            .clickable { onRowClick() }
             .padding(horizontal = 16.dp, vertical = 12.dp)
     ) {
         Row(

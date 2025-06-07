@@ -21,6 +21,26 @@ class AddEditBeerViewModel @Inject constructor(private val repository: IBeersLoc
 
     val addEditBeerUIState = _addEditBeerUIState.asStateFlow()
 
+
+    fun loadBeer(id: Long?){
+        if (_addEditBeerUIState.value.beer.isDefault()) {
+            if (id != null) {
+                viewModelScope.launch {
+                    _addEditBeerUIState.value = _addEditBeerUIState.value.copy(
+                        beer = repository.getById(id),
+                        loading = false
+                    )
+
+                }
+            } else {
+                _addEditBeerUIState.value = _addEditBeerUIState.value.copy(
+                    beer = Beer("", Instant.now(),"","",0.0f,"", 0.0, 0.0),
+                    loading = false
+                )
+            }
+        }
+    }
+
     override fun onNameChange(text: String) {
         _addEditBeerUIState.value =
             _addEditBeerUIState.value.copy(
@@ -87,32 +107,11 @@ class AddEditBeerViewModel @Inject constructor(private val repository: IBeersLoc
 
     }
 
-    fun removeBeer(){
+  fun removeBeer(){
         viewModelScope.launch {
             repository.delete(_addEditBeerUIState.value.beer)
             _addEditBeerUIState.value = _addEditBeerUIState.value.copy(beerDeleted = true)
         }
     }
-
-
-    fun loadBeer(id: Long?){
-        if (_addEditBeerUIState.value.beer.isDefault()) {
-            if (id != null) {
-                viewModelScope.launch {
-                    _addEditBeerUIState.value = _addEditBeerUIState.value.copy(
-                        beer = repository.getById(id),
-                        loading = false
-                    )
-
-                }
-            } else {
-                _addEditBeerUIState.value = _addEditBeerUIState.value.copy(
-                    beer = Beer("", Instant.now(),"","",0.0f,"", 0.0, 0.0),
-                    loading = false
-                )
-            }
-        }
-    }
-
 
 }

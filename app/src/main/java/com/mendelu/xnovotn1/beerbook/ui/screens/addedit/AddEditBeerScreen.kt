@@ -69,7 +69,10 @@ fun AddEditBeerScreen(
 
     val state = viewModel.addEditBeerUIState.collectAsStateWithLifecycle()
 
-    if (state.value.beerDeleted || state.value.beerSaved){
+    if (state.value.beerDeleted){
+        navigation.navigateToList()
+    }
+    if (state.value.beerSaved){
         navigation.returnBack()
     }
 

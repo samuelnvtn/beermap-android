@@ -9,6 +9,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import androidx.navigation.NavType
 import com.mendelu.xnovotn1.beerbook.ui.screens.addedit.AddEditBeerScreen
+import com.mendelu.xnovotn1.beerbook.ui.screens.detail.DetailScreen
 import com.mendelu.xnovotn1.beerbook.ui.screens.list.BeersListScreen
 import com.mendelu.xnovotn1.beerbook.ui.screens.map.MapScreen
 
@@ -28,6 +29,10 @@ fun NavGraph(
             BeersListScreen(navRouter)
         }
 
+        composable(route = Destination.AddEditBeerScreen.route) {
+            AddEditBeerScreen(navRouter, null)
+        }
+
         composable(route = "${Destination.AddEditBeerScreen.route}/{id}",
             arguments = listOf(
                 navArgument("id"){
@@ -40,12 +45,23 @@ fun NavGraph(
             AddEditBeerScreen(navRouter, id)
         }
 
-        composable(route = Destination.AddEditBeerScreen.route) {
-            AddEditBeerScreen(navRouter, null)
-        }
 
         composable(route = Destination.MapScreen.route) {
             MapScreen(navRouter)
+        }
+
+        composable(route = "${Destination.DetailScreen.route}/{id}",
+            arguments = listOf(
+                navArgument("id"){
+                    type = NavType.LongType
+                    defaultValue = -1L
+                }
+            )
+        ){
+            val id = it.arguments?.getLong("id")
+            if (id != null) {
+                DetailScreen(navRouter, id)
+            }
         }
     }
 

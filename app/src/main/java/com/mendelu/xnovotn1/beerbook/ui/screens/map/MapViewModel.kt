@@ -14,16 +14,16 @@ import javax.inject.Inject
 @HiltViewModel
 class MapViewModel  @Inject constructor(private val repository: IBeersLocalRepository) : ViewModel() {
 
-    private val _beerListUIState: MutableStateFlow<BeersListUIState> =
-        MutableStateFlow(value = BeersListUIState.Default())
+    private val _mapUIState: MutableStateFlow<MapUIState> =
+        MutableStateFlow(value = MapUIState.Default())
 
-    val beerListUIState = _beerListUIState.asStateFlow()
+    val mapUIState = _mapUIState.asStateFlow()
 
     fun loadBeers(){
         viewModelScope.launch {
             repository.getAll().collect { beers ->
-                _beerListUIState.update {
-                    BeersListUIState.Success(beers)
+                _mapUIState.update {
+                    MapUIState.Success(beers)
                 }
             }
         }

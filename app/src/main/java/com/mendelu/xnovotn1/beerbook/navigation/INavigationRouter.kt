@@ -5,5 +5,6 @@ interface INavigationRouter {
     fun navigateToList()
     fun navigateToSettings()
     fun navigateToMap()
+    fun navigateToDetail(id: Long)
     fun returnBack()
 }

@@ -33,7 +33,7 @@ interface BeersDao {
 
     // TODO: beers per day, week, month, year 
     
-    @Query("SELECT * FROM beers ORDER BY id DESC")
+    @Query("SELECT * FROM beers ORDER BY timestamp DESC")
     fun getAll(): Flow<List<Beer>>
 
     @Query("SELECT * FROM beers WHERE id = :id")

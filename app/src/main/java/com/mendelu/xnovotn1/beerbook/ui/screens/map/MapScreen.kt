@@ -50,17 +50,17 @@ fun MapScreen(
 ){
     val viewModel = hiltViewModel<MapViewModel>()
 
-    val state = viewModel.beerListUIState.collectAsStateWithLifecycle()
+    val state = viewModel.mapUIState.collectAsStateWithLifecycle()
 
     val beers = remember { mutableStateListOf<Beer>() }
 
     state.value.let {
         when (it) {
-            is BeersListUIState.Default -> {
+            is MapUIState.Default -> {
                 viewModel.loadBeers()
             }
 
-            is BeersListUIState.Success -> {
+            is MapUIState.Success -> {
                 // dostal jsem seznam
                 beers.clear()
                 beers.addAll(it.beers)
