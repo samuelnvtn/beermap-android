@@ -7,4 +7,5 @@ interface INavigationRouter {
     fun navigateToMap()
     fun navigateToDetail(id: Long)
     fun returnBack()
+    fun navigateToCalendar()
 }

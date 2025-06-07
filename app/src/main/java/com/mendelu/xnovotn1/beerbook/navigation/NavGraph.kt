@@ -9,6 +9,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import androidx.navigation.NavType
 import com.mendelu.xnovotn1.beerbook.ui.screens.addedit.AddEditBeerScreen
+import com.mendelu.xnovotn1.beerbook.ui.screens.calendar.CalendarScreen
 import com.mendelu.xnovotn1.beerbook.ui.screens.detail.DetailScreen
 import com.mendelu.xnovotn1.beerbook.ui.screens.list.BeersListScreen
 import com.mendelu.xnovotn1.beerbook.ui.screens.map.MapScreen
@@ -50,6 +51,10 @@ fun NavGraph(
 
         composable(route = Destination.MapScreen.route) {
             MapScreen(navRouter)
+        }
+
+        composable(route = Destination.CalendarScreen.route) {
+            CalendarScreen(navRouter)
         }
 
         composable(route = "${Destination.DetailScreen.route}/{id}",

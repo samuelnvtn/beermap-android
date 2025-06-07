@@ -1,6 +1,7 @@
 package com.mendelu.xnovotn1.beerbook
 
 import android.os.Bundle
+import android.widget.CalendarView
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -9,6 +10,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
@@ -17,6 +19,7 @@ import com.mendelu.xnovotn1.beerbook.navigation.Destination
 import com.mendelu.xnovotn1.beerbook.navigation.NavGraph
 import com.mendelu.xnovotn1.beerbook.ui.theme.BeerBookTheme
 import dagger.hilt.android.AndroidEntryPoint
+import java.time.YearMonth
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {

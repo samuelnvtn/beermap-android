@@ -32,4 +32,8 @@ class NavigationRouterImpl(private val navController: NavController) : INavigati
     override fun returnBack() {
         navController.popBackStack()
     }
+
+    override fun navigateToCalendar() {
+        navController.navigate(Destination.CalendarScreen.route)
+    }
 }

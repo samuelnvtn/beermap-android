@@ -85,7 +85,7 @@ dependencies {
 
     implementation(libs.accompanist.permissions)
 
-    
+
     implementation("io.github.vanpra.compose-material-dialogs:datetime:0.9.0")
-    implementation ("com.kizitonwose.calendar:calendar-compose:0.4.1")
+    implementation ("com.kizitonwose.calendar:compose:2.7.0")
 }
