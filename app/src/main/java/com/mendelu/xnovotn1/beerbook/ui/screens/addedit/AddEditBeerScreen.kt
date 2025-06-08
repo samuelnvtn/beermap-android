@@ -139,7 +139,8 @@ fun AddEditBeerScreen(
             paddingValues = it,
             actions = viewModel,
             data = state.value,
-            navigation = navigation
+            navigation = navigation,
+            id = id
         )
     }
 }
@@ -150,7 +151,8 @@ fun AddEditBeerScreenContent(
     paddingValues: PaddingValues,
     data: AddEditBeerUIState,
     actions: AddEditBeerActions,
-    navigation: INavigationRouter
+    navigation: INavigationRouter,
+    id: Long?
 ) {
     val context = LocalContext.current
     val fusedLocationClient = remember { LocationServices.getFusedLocationProviderClient(context) }
@@ -268,12 +270,19 @@ fun AddEditBeerScreenContent(
                 data.beer.timestamp.atZone(ZoneId.systemDefault())
             }
 
+
             val dateDialogState = rememberMaterialDialogState()
             val timeDialogState = rememberMaterialDialogState()
 
             var selectedDate by remember { mutableStateOf(zonedDateTime.toLocalDate()) }
             var selectedTime by remember { mutableStateOf(zonedDateTime.toLocalTime()) }
 
+            LaunchedEffect(id, data.beer.timestamp) {
+                if (id != null) {
+                    selectedDate = data.beer.timestamp.atZone(ZoneId.systemDefault()).toLocalDate()
+                    selectedTime = data.beer.timestamp.atZone(ZoneId.systemDefault()).toLocalTime()
+                }
+            }
 
             Text(
                 text = stringResource(R.string.beer_dt),

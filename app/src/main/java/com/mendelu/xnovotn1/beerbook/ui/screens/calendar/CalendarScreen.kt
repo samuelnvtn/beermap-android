@@ -11,17 +11,21 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Place
 import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.Divider
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
@@ -225,33 +229,50 @@ fun CalendarScreenContent(
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        val selectedBeers = beers.filter { beer ->
-            beer.timestamp.atZone(ZoneId.systemDefault()).toLocalDate() == selectedDay.value
-        }
+Column(modifier = Modifier
+    .fillMaxSize()
+    .verticalScroll(rememberScrollState())
+    .padding(bottom = 16.dp)
+) {
+    val selectedBeers = beers.filter { beer ->
+        beer.timestamp.atZone(ZoneId.systemDefault()).toLocalDate() == selectedDay.value
+    }
 
-        if (selectedDay.value == null) {
-            Text(
-                (stringResource(R.string.clickme)),
-                style = MaterialTheme.typography.bodyMedium,
-                modifier = Modifier.padding(horizontal = 16.dp),
-                color = textColor()
-            )
-        } else if (selectedBeers.isEmpty()) {
-            Text(
-                text = stringResource(R.string.beer_emptycal) + " ${formatDate(selectedDay.value.toString()) }",
-                style = MaterialTheme.typography.bodyMedium,
-                modifier = Modifier.padding(horizontal = 16.dp),
-                color = textColor()
-            )
-        } else {
-            selectedBeers.forEach { beer ->
+    if (selectedDay.value == null) {
+        Text(
+            (stringResource(R.string.clickme)),
+            style = MaterialTheme.typography.bodyMedium,
+            modifier = Modifier
+                .padding(horizontal = 8.dp),
+            color = textColor()
+        )
+    } else if (selectedBeers.isEmpty()) {
+        Text(
+            text = stringResource(R.string.beer_emptycal) + " ${formatDate(selectedDay.value.toString()) }",
+            style = MaterialTheme.typography.bodyMedium,
+            modifier = Modifier.padding(horizontal = 16.dp),
+            color = textColor()
+        )
+    } else {
+        selectedBeers.forEach { beer ->
+            Row(verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clickable {
+                        beer.id?.let { navigation.navigateToDetail(it) }
+                    }) {
                 Text(
-                    "${beer.name} (${beer.rating}⭐)",
+                    "${beer.name} 📍${beer.locationName} ⭐${beer.rating}",
                     style = MaterialTheme.typography.bodyMedium,
-                    modifier = Modifier.padding(horizontal = 16.dp, vertical = 2.dp),
-                    color = textColor()
+                    modifier = Modifier
+                        .padding(horizontal = 16.dp, vertical = 2.dp),
+                    color = textColor(),
                 )
             }
         }
+    }
+}
+
+
     }
 }

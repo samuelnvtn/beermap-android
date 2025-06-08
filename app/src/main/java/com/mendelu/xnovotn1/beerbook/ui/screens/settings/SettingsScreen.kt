@@ -8,9 +8,11 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
@@ -32,6 +34,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -110,79 +113,120 @@ fun SettingsScreenContent(
     val context = LocalContext.current
     val activity = context as? Activity
 
-    Column(
+    Box(
         modifier = Modifier
-            .padding(paddingValues)
-            .padding(16.dp)
+            .fillMaxSize(),
+        contentAlignment = Alignment.Center
+
     ) {
-        Text(text = stringResource(R.string.lang), color = textColor())
-        Box(
+        Column(
             modifier = Modifier
-                .fillMaxWidth()
-                .border(1.dp, Color.Gray, RoundedCornerShape(4.dp))
-                .clickable { expanded = true }
-                .padding(12.dp)
-        ) {
-            Text(text = languages.find { it.second == language }?.first ?: language, color = textColor())
-            DropdownMenu(
-                expanded = expanded,
-                onDismissRequest = { expanded = false },
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                languages.forEach { (label, code) ->
-                    DropdownMenuItem(
-                        text = { Text(label) },
-                        onClick = {
-                            viewModel.setLanguage(code)
-                            updateLocale(context, code)
-                            expanded = false
-                            activity?.recreate()
-                        }
-                    )
-                }
-            }
-        }
-        val themeOptions = listOf(
-            stringResource(R.string.t_system) to "system",
-            stringResource(R.string.t_light) to "light",
-            stringResource(R.string.t_dark) to "dark"
-        )
-
-        var themeExpanded by remember { mutableStateOf(false) }
-
-        Spacer(Modifier.height(24.dp))
-        Text(text = stringResource(R.string.theme), color = textColor())
-
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .border(1.dp, Color.Gray, RoundedCornerShape(4.dp))
-                .clickable { themeExpanded = true }
-                .padding(12.dp)
+                .padding(paddingValues)
+                .padding(16.dp)
         ) {
             Text(
-                text = themeOptions.find { it.second == theme }?.first ?: theme,
-                color = textColor()
+                text = stringResource(R.string.lang),
+                color = textColor(),
+                modifier = Modifier
+                    .align(Alignment.CenterHorizontally)
+                    .padding(bottom = 16.dp)
             )
-            DropdownMenu(
-                expanded = themeExpanded,
-                onDismissRequest = { themeExpanded = false },
-                modifier = Modifier.fillMaxWidth()
+            Box(
+                modifier = Modifier
+                    .width(250.dp)
+                    .border(1.dp, lightButton, RoundedCornerShape(80.dp))
+                    .clickable { expanded = true }
+                    .align(Alignment.CenterHorizontally)
+                    .padding(top = 16.dp, bottom = 16.dp),
+                contentAlignment = Alignment.Center
             ) {
-                themeOptions.forEach { (label, code) ->
-                    DropdownMenuItem(
-                        text = { Text(label) },
-                        onClick = {
-                            viewModel.setTheme(code)
-                            themeExpanded = false
-                        }
-                    )
+                Text(
+                    text = languages.find { it.second == language }?.first ?: language,
+                    color = textColor(),
+                )
+                DropdownMenu(
+                    expanded = expanded,
+                    onDismissRequest = { expanded = false },
+                    modifier = Modifier
+                        .width(250.dp)
+                ) {
+                    languages
+                        .filter { it.second != language }
+                        .forEach { (label, code) ->
+                        DropdownMenuItem(
+                            text = { Text(label, textAlign = TextAlign.Center,
+                                modifier = Modifier.fillMaxWidth()) },
+                            onClick = {
+                                viewModel.setLanguage(code)
+                                updateLocale(context, code)
+                                expanded = false
+                                activity?.recreate()
+                            }
+                        )
+                    }
                 }
             }
+            val themeOptions = listOf(
+                stringResource(R.string.t_system) to "system",
+                stringResource(R.string.t_light) to "light",
+                stringResource(R.string.t_dark) to "dark"
+            )
+
+            var themeExpanded by remember { mutableStateOf(false) }
+
+            Spacer(Modifier.height(24.dp))
+            Text(
+                text = stringResource(R.string.theme),
+                color = textColor(),
+                modifier = Modifier
+                    .align(Alignment.CenterHorizontally)
+                    .padding(bottom = 16.dp)
+            )
+
+            Box(
+                modifier = Modifier
+                    .width(250.dp)
+                    .border(1.dp, lightButton, RoundedCornerShape(80.dp))
+                    .clickable { themeExpanded = true }
+                    .align(Alignment.CenterHorizontally)
+                    .padding(top = 16.dp, bottom = 16.dp),
+                contentAlignment = Alignment.Center
+            ) {
+                Text(
+                    text = themeOptions.find { it.second == theme }?.first ?: theme,
+                    color = textColor(),
+                    textAlign = TextAlign.Center
+                )
+                DropdownMenu(
+                    expanded = themeExpanded,
+                    onDismissRequest = { themeExpanded = false },
+                    modifier = Modifier
+                        .width(250.dp),
+                ) {
+                    themeOptions
+                        .filter { it.second != theme }
+                        .forEach { (label, code) ->
+                        DropdownMenuItem(
+                            text = {
+                                Text(
+                                    label,
+                                    textAlign = TextAlign.Center,
+                                    modifier = Modifier.fillMaxWidth()
+                                    )
+                                   },
+                            onClick = {
+                                viewModel.setTheme(code)
+                                themeExpanded = false
+                            }
+                        )
+                    }
+                }
+            }
+            VersionFooter()
         }
-        VersionFooter()
+        }
     }
-}
+
 
 @Composable
 fun VersionFooter() {
@@ -195,6 +239,16 @@ fun VersionFooter() {
             "?"
         }
     }
+
+    Text(
+        text = stringResource(R.string.author) + " Samuel Novotný",
+        style = MaterialTheme.typography.labelMedium,
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(bottom = 16.dp, top = 32.dp),
+        textAlign = TextAlign.Center,
+        color = textColor()
+    )
 
     Text(
         text = "v$version",
