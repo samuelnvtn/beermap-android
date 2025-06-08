@@ -8,17 +8,8 @@ import kotlinx.coroutines.flow.map
 
 class DataStoreRepositoryImpl (private val context: Context) : IDataStoreRepository {
 
-    override suspend fun setTheme(theme: String) {
-        context.dataStore.edit { prefs ->
-            prefs[stringPreferencesKey(DataStoreConstants.KEY_THEME)] = theme
-        }
-    }
-
-    override fun getTheme(): Flow<String?> {
-        return context.dataStore.data.map { prefs ->
-            prefs[stringPreferencesKey(DataStoreConstants.KEY_THEME)]
-        }
-    }
+    override fun getTheme(): Flow<String> = context.themeFlow
+    override suspend fun setTheme(theme: String) = context.setThemePreference(theme)
 
     override fun getLanguage(): Flow<String> = context.languageFlow
 

@@ -27,17 +27,18 @@ class SettingsViewModel @Inject constructor(
 
         resources.updateConfiguration(config, resources.displayMetrics)
     }
-    val theme: StateFlow<String?> = repository.getTheme()
-        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), null)
-
-    val language: StateFlow<String?> = repository.getLanguage()
-        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), "en")
+    val theme: StateFlow<String> = repository.getTheme()
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), "SYSTEM")
 
     fun setTheme(theme: String) {
         viewModelScope.launch {
             repository.setTheme(theme)
         }
     }
+
+    val language: StateFlow<String?> = repository.getLanguage()
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), "en")
+
 
     fun setLanguage(language: String) {
         viewModelScope.launch {

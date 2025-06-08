@@ -13,6 +13,15 @@ val Context.dataStore: DataStore<Preferences> by preferencesDataStore(
     name = DataStoreConstants.PREFERENCES_NAME
 )
 
+val Context.themeFlow: Flow<String> get() = dataStore.data
+    .map { prefs -> prefs[stringPreferencesKey(DataStoreConstants.THEME)] ?: "system" }
+
+suspend fun Context.setThemePreference(theme: String) {
+    dataStore.edit { prefs ->
+        prefs[stringPreferencesKey(DataStoreConstants.THEME)] = theme
+    }
+}
+
 val Context.languageFlow: Flow<String>
     get() = dataStore.data
     .map { prefs -> prefs[stringPreferencesKey(DataStoreConstants.LANGUAGE)] ?: "cs" }

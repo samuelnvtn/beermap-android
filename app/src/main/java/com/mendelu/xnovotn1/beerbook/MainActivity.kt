@@ -36,9 +36,21 @@ class MainActivity : ComponentActivity() {
             val settingsViewModel = hiltViewModel<SettingsViewModel>()
             val theme by settingsViewModel.theme.collectAsState()
 
-            val isDarkTheme = when(theme) {
-                "DARK" -> true
+            val context = androidx.compose.ui.platform.LocalContext.current
+            val activity = context as? android.app.Activity
+            val previousTheme = remember { androidx.compose.runtime.mutableStateOf(theme) }
+
+            androidx.compose.runtime.LaunchedEffect(theme) {
+                if (theme != previousTheme.value) {
+                    previousTheme.value = theme
+                    activity?.recreate()
+                }
+            }
+
+
+            val isDarkTheme = when (theme.uppercase()) {
                 "LIGHT" -> false
+                "DARK" -> true
                 "SYSTEM" -> isSystemInDarkTheme()
                 else -> isSystemInDarkTheme()
             }

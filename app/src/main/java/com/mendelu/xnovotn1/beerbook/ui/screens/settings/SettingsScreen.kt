@@ -20,6 +20,7 @@ import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -33,6 +34,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import com.mendelu.xnovotn1.beerbook.R
 import com.mendelu.xnovotn1.beerbook.navigation.Destination
 import com.mendelu.xnovotn1.beerbook.navigation.INavigationRouter
@@ -41,7 +43,9 @@ import com.mendelu.xnovotn1.beerbook.ui.elements.BottomNavBar
 import com.mendelu.xnovotn1.beerbook.ui.screens.map.MapScreenContent
 import com.mendelu.xnovotn1.beerbook.ui.theme.darkTextColor
 import com.mendelu.xnovotn1.beerbook.ui.theme.lightButton
+import com.mendelu.xnovotn1.beerbook.ui.theme.textColor
 import java.util.Locale
+
 
 @Composable
 fun SettingsScreen(
@@ -74,7 +78,8 @@ fun SettingsScreen(
                     paddingValues = it,
                     navigation = navigation,
                     viewModel = viewModel,
-                    language = it1
+                    language = it1,
+                    theme = theme
                 )
             }
         }
@@ -97,9 +102,11 @@ fun SettingsScreenContent(
     navigation: INavigationRouter,
     viewModel: SettingsViewModel,
     language: String,
+    theme: String,
+
 ){
     var expanded by remember { mutableStateOf(false) }
-    val languages = listOf("Čeština" to "cs", "English" to "en")
+    val languages = listOf(stringResource(R.string.cz) to "cs", stringResource(R.string.en) to "en")
     val context = LocalContext.current
     val activity = context as? Activity
 
@@ -108,7 +115,7 @@ fun SettingsScreenContent(
             .padding(paddingValues)
             .padding(16.dp)
     ) {
-        Text(text = "Select Language")
+        Text(text = stringResource(R.string.lang), color = textColor())
         Box(
             modifier = Modifier
                 .fillMaxWidth()
@@ -116,7 +123,7 @@ fun SettingsScreenContent(
                 .clickable { expanded = true }
                 .padding(12.dp)
         ) {
-            Text(text = languages.find { it.second == language }?.first ?: language)
+            Text(text = languages.find { it.second == language }?.first ?: language, color = textColor())
             DropdownMenu(
                 expanded = expanded,
                 onDismissRequest = { expanded = false },
@@ -135,5 +142,67 @@ fun SettingsScreenContent(
                 }
             }
         }
+        val themeOptions = listOf(
+            stringResource(R.string.t_system) to "system",
+            stringResource(R.string.t_light) to "light",
+            stringResource(R.string.t_dark) to "dark"
+        )
+
+        var themeExpanded by remember { mutableStateOf(false) }
+
+        Spacer(Modifier.height(24.dp))
+        Text(text = stringResource(R.string.theme), color = textColor())
+
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .border(1.dp, Color.Gray, RoundedCornerShape(4.dp))
+                .clickable { themeExpanded = true }
+                .padding(12.dp)
+        ) {
+            Text(
+                text = themeOptions.find { it.second == theme }?.first ?: theme,
+                color = textColor()
+            )
+            DropdownMenu(
+                expanded = themeExpanded,
+                onDismissRequest = { themeExpanded = false },
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                themeOptions.forEach { (label, code) ->
+                    DropdownMenuItem(
+                        text = { Text(label) },
+                        onClick = {
+                            viewModel.setTheme(code)
+                            themeExpanded = false
+                        }
+                    )
+                }
+            }
+        }
+        VersionFooter()
     }
+}
+
+@Composable
+fun VersionFooter() {
+    val context = LocalContext.current
+    val version = remember {
+        try {
+            val pkgInfo = context.packageManager.getPackageInfo(context.packageName, 0)
+            pkgInfo.versionName ?: "?"
+        } catch (e: Exception) {
+            "?"
+        }
+    }
+
+    Text(
+        text = "v$version",
+        style = MaterialTheme.typography.labelMedium,
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(bottom = 16.dp),
+        textAlign = TextAlign.Center,
+        color = textColor()
+    )
 }

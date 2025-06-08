@@ -27,6 +27,19 @@
     <string name="settings">Nastavení</string>
     <string name="beers">Piva</string>
     <string name="edit_beer">Upravit pivo</string>
+    <string name="lang">Vyber jazyk</string>
+    <string name="cz">Čeština</string>
+    <string name="en">Angličtina</string>
+    <string name="theme">Vzhled aplikace</string>
+    <string name="t_system">Systémový</string>
+    <string name="t_light">Světlý režim</string>
+    <string name="t_dark">Tmavý režim</string>
+
+
+
+
+
+
 
 
 

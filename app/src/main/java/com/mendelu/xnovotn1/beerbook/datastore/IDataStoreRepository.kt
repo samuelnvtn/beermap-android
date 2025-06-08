@@ -4,8 +4,8 @@ import kotlinx.coroutines.flow.Flow
 
 interface IDataStoreRepository {
 
+    fun getTheme(): Flow<String>
     suspend fun setTheme(theme: String)
-    fun getTheme(): Flow<String?>
 
     fun getLanguage(): Flow<String>
     suspend fun setLanguage(language: String)

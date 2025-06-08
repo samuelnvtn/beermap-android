@@ -32,17 +32,16 @@ val Pink40 = Color(0xFF7D5260)
 
 
 @Composable
-fun textColor() = if (isSystemInDarkTheme()) darkTextColor else lightTextColor
+fun textColor() = if (LocalAppDarkTheme.current) darkTextColor else lightTextColor
 
 @Composable
-fun barColor() = if (isSystemInDarkTheme()) darkBar else lightBar
+fun barColor() = if (LocalAppDarkTheme.current) darkBar else lightBar
 
 @Composable
-fun buttonColor() = if (isSystemInDarkTheme()) darkButton else lightButton
+fun buttonColor() = if (LocalAppDarkTheme.current) darkButton else lightButton
 
 @Composable
-fun fieldColor() = if (isSystemInDarkTheme()) darkField else lightField
+fun fieldColor() = if (LocalAppDarkTheme.current) darkField else lightField
 
 @Composable
-fun border() = if(isSystemInDarkTheme()) darkBorder else darkButton
-
+fun border() = if (LocalAppDarkTheme.current) darkBorder else darkButton
