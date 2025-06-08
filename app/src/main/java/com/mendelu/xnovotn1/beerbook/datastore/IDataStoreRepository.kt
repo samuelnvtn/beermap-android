@@ -7,7 +7,7 @@ interface IDataStoreRepository {
     suspend fun setTheme(theme: String)
     fun getTheme(): Flow<String?>
 
+    fun getLanguage(): Flow<String>
     suspend fun setLanguage(language: String)
-    fun getLanguage(): Flow<String?>
 
 }

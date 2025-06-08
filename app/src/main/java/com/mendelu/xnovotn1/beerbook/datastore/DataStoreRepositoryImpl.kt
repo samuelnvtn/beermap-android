@@ -20,15 +20,9 @@ class DataStoreRepositoryImpl (private val context: Context) : IDataStoreReposit
         }
     }
 
-    override suspend fun setLanguage(language: String) {
-        context.dataStore.edit { prefs ->
-            prefs[stringPreferencesKey(DataStoreConstants.KEY_LANGUAGE)] = language
-        }
-    }
+    override fun getLanguage(): Flow<String> = context.languageFlow
 
-    override fun getLanguage(): Flow<String?> {
-        return context.dataStore.data.map { prefs ->
-            prefs[stringPreferencesKey(DataStoreConstants.KEY_LANGUAGE)]
-        }
+    override suspend fun setLanguage(language: String) {
+        context.setLanguage(language)
     }
 }
