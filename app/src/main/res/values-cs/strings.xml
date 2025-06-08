@@ -10,8 +10,15 @@
     <string name="beer_place">Místo</string>
     <string name="cancel">Zrušit</string>
     <string name="next">Další</string>
-
-
+    <string name="beer_stats">Statistiky</string>
+    <string name="beer_emptylist">Pivní deník zatím zeje prázdnotou. To chce pořádnou rundu! </string>
+    <string name="beer_emptystats">Bez piv nejsou koláče. Na zdraví!</string>
+    <string name="stat1">Celkem piv</string>
+    <string name="stat2">Nejčastěji piješ</string>
+    <string name="stat3">Průměrné hodnocení</string>
+    <string name="stat4">Nejvíc piv v jednom dni</string>
+    <string name="stat4.5">piv dne</string>
+    <string name="stat5">Piva za měsíc</string>
 
 
 

@@ -144,7 +144,7 @@ fun MapScreenContent(
     ) {
         GoogleMap(
             modifier = Modifier.fillMaxHeight(),
-            uiSettings = mapUiSettings,
+            //uiSettings = mapUiSettings,
             cameraPositionState = cameraPositionState,
             properties = MapProperties(isMyLocationEnabled = hasLocationPermission)
         ) {

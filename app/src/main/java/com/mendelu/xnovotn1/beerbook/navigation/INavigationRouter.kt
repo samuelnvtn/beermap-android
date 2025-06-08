@@ -8,4 +8,5 @@ interface INavigationRouter {
     fun navigateToDetail(id: Long)
     fun returnBack()
     fun navigateToCalendar()
+    fun navigateToStats()
 }

@@ -16,15 +16,23 @@ class BeersLocalRepositoryImpl @Inject constructor(private val beersDao: BeersDa
        beersDao.delete(beer)
     }
 
-    override fun getCount(): Int {
+    override suspend fun getCount(): Int {
         return beersDao.getCount()
     }
 
-    override fun getMostDrankBeer(): String {
+    override suspend fun getMostDrankBeer(): String {
         return beersDao.getMostDrankBeer()
     }
 
-    override fun getAvgRating(): Float? {
+    override suspend fun getMostBeersInOneDay(): BeersDao.MostBeersDay? {
+        return beersDao.getMostBeersInOneDay()
+    }
+
+    override suspend fun getBeersPerMonth(): List<BeersDao.BeersPerMonth> {
+        return beersDao.getBeersPerMonth()
+    }
+
+    override suspend fun getAvgRating(): Float? {
         return beersDao.getAvgRating()
     }
 

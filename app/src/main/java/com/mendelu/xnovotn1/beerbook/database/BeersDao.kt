@@ -21,18 +21,18 @@ interface BeersDao {
 
     //counts all beers
     @Query("SELECT COUNT(id) FROM beers")
-    fun getCount(): Int
+    suspend fun getCount(): Int
 
     //gets most drank beer
     @Query("SELECT name FROM beers GROUP BY name ORDER BY COUNT(name) DESC LIMIT 1")
-    fun getMostDrankBeer(): String
+    suspend fun getMostDrankBeer(): String
 
     //gets avg rating
     @Query("SELECT AVG(rating) FROM beers")
-    fun getAvgRating(): Float?
+    suspend fun getAvgRating(): Float?
 
     // TODO: beers per day, week, month, year 
-    
+
     @Query("SELECT * FROM beers ORDER BY timestamp DESC")
     fun getAll(): Flow<List<Beer>>
 
@@ -41,4 +41,37 @@ interface BeersDao {
 
     @Query("UPDATE beers SET beerState = :state WHERE id = :id")
     suspend fun changeBeerState(id: Long, state: Boolean)
+
+    // most beers logged in one day
+    @Query(
+        """
+        SELECT DATE(timestamp / 1000, 'unixepoch') as day, COUNT(*) as total
+        FROM beers
+        GROUP BY day
+        ORDER BY total DESC
+        LIMIT 1
+    """
+    )
+    suspend fun getMostBeersInOneDay(): MostBeersDay?
+
+    // total beers per month
+    @Query(
+        """
+        SELECT strftime('%Y-%m', timestamp / 1000, 'unixepoch') as month, COUNT(*) as total
+        FROM beers
+        GROUP BY month
+        ORDER BY month DESC
+    """
+    )
+    suspend fun getBeersPerMonth(): List<BeersPerMonth>
+
+    data class MostBeersDay(
+        val day: String,
+        val total: Int
+    )
+
+    data class BeersPerMonth(
+        val month: String,
+        val total: Int
+    )
 }

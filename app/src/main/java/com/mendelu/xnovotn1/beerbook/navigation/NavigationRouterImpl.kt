@@ -36,4 +36,8 @@ class NavigationRouterImpl(private val navController: NavController) : INavigati
     override fun navigateToCalendar() {
         navController.navigate(Destination.CalendarScreen.route)
     }
+
+    override fun navigateToStats() {
+        navController.navigate(Destination.StatsScreen.route)
+    }
 }

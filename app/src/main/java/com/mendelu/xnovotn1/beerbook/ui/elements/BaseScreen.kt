@@ -20,6 +20,7 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import com.mendelu.xnovotn1.beerbook.ui.theme.DarkPurple
 import com.mendelu.xnovotn1.beerbook.ui.theme.barColor
 import com.mendelu.xnovotn1.beerbook.ui.theme.buttonColor
@@ -40,7 +41,10 @@ fun BaseScreen(
     Scaffold(
         topBar = {
             TopAppBar(title = {
-                Text(text = topBarText)
+                Text(
+                    text = topBarText,
+                    fontWeight = FontWeight.Bold
+                )
             }, navigationIcon = {
                 if (onBackClick != null){
                     IconButton(onClick = onBackClick) {
@@ -65,7 +69,9 @@ fun BaseScreen(
         if (showLoading){
             LoadingScreen()
         } else if (placeholderScreenContent != null){
-           PlaceholderScreen(placeholderScreenContent)
+           PlaceholderScreen(
+               paddingValues = it,
+               placeholderScreenContent = placeholderScreenContent)
         } else {
             content(it)
         }

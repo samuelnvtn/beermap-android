@@ -1,13 +1,20 @@
 package com.mendelu.xnovotn1.beerbook.ui.screens.detail
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Create
+import androidx.compose.material.icons.filled.Place
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
@@ -18,17 +25,28 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.google.android.gms.maps.model.CameraPosition
+import com.google.android.gms.maps.model.LatLng
+import com.google.maps.android.compose.GoogleMap
+import com.google.maps.android.compose.MapProperties
+import com.google.maps.android.compose.Marker
+import com.google.maps.android.compose.MarkerState
+import com.google.maps.android.compose.rememberCameraPositionState
 import com.mendelu.xnovotn1.beerbook.database.Beer
 import com.mendelu.xnovotn1.beerbook.navigation.Destination
 import com.mendelu.xnovotn1.beerbook.navigation.INavigationRouter
 import com.mendelu.xnovotn1.beerbook.ui.elements.BaseScreen
 import com.mendelu.xnovotn1.beerbook.ui.elements.BottomNavBar
 import com.mendelu.xnovotn1.beerbook.ui.elements.PlaceholderScreenContent
+import com.mendelu.xnovotn1.beerbook.ui.screens.list.RatingBar
+import com.mendelu.xnovotn1.beerbook.ui.screens.list.formatDateTime
 import com.mendelu.xnovotn1.beerbook.ui.theme.buttonColor
 import com.mendelu.xnovotn1.beerbook.ui.theme.textColor
 
@@ -82,7 +100,7 @@ fun DetailScreen(
                 )
             }
         },
-        topBarText = "Beers",
+        topBarText = "Detail",
         onBackClick = {
             navigation.returnBack()
         }
@@ -106,14 +124,81 @@ fun DetailContent(
     Column(modifier = Modifier.padding(paddingValues).padding(16.dp)) {
         Text(
             text = beer.name,
-            style = MaterialTheme.typography.titleLarge,
-            fontWeight = FontWeight.Bold
+            style = MaterialTheme.typography.headlineLarge,
+            fontWeight = FontWeight.Bold,
+            color = textColor()
         )
+
+        Spacer(modifier = Modifier.height(4.dp))
+
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            Icon(
+                imageVector = Icons.Default.Place,
+                contentDescription = null,
+                tint = textColor(),
+                modifier = Modifier.size(18.dp)
+            )
+            Spacer(modifier = Modifier.width(4.dp))
+            Text(
+                text = beer.locationName,
+                style = MaterialTheme.typography.bodyMedium,
+                fontWeight = FontWeight.Bold,
+                color = textColor()
+            )
+        }
+
+        Spacer(modifier = Modifier.height(4.dp))
+
+        Text(
+            text = formatDateTime(beer.timestamp),
+            style = MaterialTheme.typography.bodySmall,
+            color = textColor()
+        )
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(250.dp)
+                .clip(RoundedCornerShape(12.dp))
+        ) {
+            val cameraPositionState = rememberCameraPositionState {
+                position = CameraPosition.fromLatLngZoom(
+                    LatLng(beer.latitude, beer.longitude), 15f
+                )
+            }
+
+            GoogleMap(
+                modifier = Modifier.matchParentSize(),
+                cameraPositionState = cameraPositionState,
+                properties = MapProperties(isMyLocationEnabled = true)
+            ) {
+                Marker(
+                    state = MarkerState(position = LatLng(beer.latitude, beer.longitude)),
+                    title = beer.name,
+                    snippet = beer.locationName
+                )
+            }
+        }
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        RatingBar(
+            rating = beer.rating,
+            modifier = Modifier.padding(vertical = 4.dp),
+            starSize = 36.dp
+        )
+
 
         Spacer(modifier = Modifier.height(8.dp))
 
-        Text("Lokalita: ${beer.locationName}")
-        Text("Popis: ${beer.description ?: "—"}")
-        Text("Hodnocení: ${beer.rating}/5")
+        if (!beer.description.isNullOrBlank()) {
+            Text(
+                text = beer.description!!,
+                style = MaterialTheme.typography.bodyMedium,
+                color = textColor()
+            )
+        }
     }
 }

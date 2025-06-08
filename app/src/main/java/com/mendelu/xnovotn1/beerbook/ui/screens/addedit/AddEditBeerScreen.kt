@@ -90,6 +90,7 @@ import java.time.LocalTime
 import java.time.ZoneId
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
+import kotlin.math.sin
 
 @Composable
 fun AddEditBeerScreen(
@@ -250,6 +251,7 @@ fun AddEditBeerScreenContent(
                         //Text(text = context.getString(data.taskTextError!!))
                     }
                 },
+                singleLine = true,
                 colors = TextFieldDefaults.outlinedTextFieldColors(
                     containerColor = fieldColor(),
                     disabledBorderColor = border(),
@@ -285,6 +287,7 @@ fun AddEditBeerScreenContent(
                     .clickable { dateDialogState.show() },
                 value = formatter.format(data.beer.timestamp),
                 onValueChange = {},
+                supportingText = {},
                 readOnly = true,
                 enabled = false,
                 shape = RoundedCornerShape(8.dp),
@@ -394,6 +397,7 @@ fun AddEditBeerScreenContent(
                     }
                 },
                 shape = RoundedCornerShape(8.dp),
+                singleLine = true,
                 colors = TextFieldDefaults.outlinedTextFieldColors(
                     containerColor = fieldColor(),
                     disabledBorderColor = border(),

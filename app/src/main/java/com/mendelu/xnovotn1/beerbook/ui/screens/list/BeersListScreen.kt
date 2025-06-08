@@ -31,10 +31,13 @@ import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -90,8 +93,8 @@ fun BeersListScreen(
         },
         placeholderScreenContent = if (beers.size == 0) {
             PlaceholderScreenContent(
-                //image = R.drawable.undraw_chore_list_ylw0,
-                text = "Nemáte žádné záznamy")
+                image = R.drawable.undraw_beer,
+                text = (stringResource(R.string.beer_emptylist)))
         } else null,
 
         actions = {
@@ -224,7 +227,7 @@ fun formatDateTime(timestamp: Instant): String {
 }
 
 @Composable
-fun RatingBar(rating: Float, modifier: Modifier = Modifier) {
+fun RatingBar(rating: Float, modifier: Modifier = Modifier, starSize: Dp = 20.dp) {
     val starHalf = ImageVector.vectorResource(id = R.drawable.star_half)
     val outlinedStar = ImageVector.vectorResource(id = R.drawable.outstar)
 
@@ -237,10 +240,11 @@ fun RatingBar(rating: Float, modifier: Modifier = Modifier) {
                 else -> outlinedStar
             }
             Icon(
-                tint = textColor(),
+                tint = Color(0xFFF28E1C),
                 imageVector = icon,
                 contentDescription = null,
-                modifier = Modifier.size(20.dp)
+                modifier = Modifier
+                    .size(starSize),
             )
         }
     }

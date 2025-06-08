@@ -10,5 +10,18 @@
     <string name="beer_place">Place</string>
     <string name="cancel">Cancel</string>
     <string name="next">Next</string>
+    <string name="beer_stats">Stats</string>
+    <string name="beer_emptylist">No beers logged yet — start pouring!</string>
+    <string name="beer_emptystats">No beers, no stats. Cheers!</string>
+    <string name="stat1">Total beers logged</string>
+    <string name="stat2">Most frequently drank</string>
+    <string name="stat3">Average rating</string>
+    <string name="stat4">Most beers in one day</string>
+    <string name="stat4.5">beers on</string>
+    <string name="stat5">Beers per month</string>
+
+
+
+
 
 </resources>

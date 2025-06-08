@@ -47,7 +47,7 @@ fun BottomNavBar(
                         Destination.BeersListScreen -> navigation.navigateToList()
                         Destination.MapScreen -> navigation.navigateToMap()
                         Destination.CalendarScreen -> navigation.navigateToCalendar()
-                        Destination.StatsScreen -> {/* TODO */}
+                        Destination.StatsScreen -> navigation.navigateToStats()
                         else -> {}
                     }
 
