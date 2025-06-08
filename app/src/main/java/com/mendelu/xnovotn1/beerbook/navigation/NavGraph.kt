@@ -13,6 +13,7 @@ import com.mendelu.xnovotn1.beerbook.ui.screens.calendar.CalendarScreen
 import com.mendelu.xnovotn1.beerbook.ui.screens.detail.DetailScreen
 import com.mendelu.xnovotn1.beerbook.ui.screens.list.BeersListScreen
 import com.mendelu.xnovotn1.beerbook.ui.screens.map.MapScreen
+import com.mendelu.xnovotn1.beerbook.ui.screens.settings.SettingsScreen
 import com.mendelu.xnovotn1.beerbook.ui.screens.stats.StatsScreen
 
 
@@ -60,6 +61,10 @@ fun NavGraph(
 
         composable(route = Destination.StatsScreen.route) {
             StatsScreen(navRouter)
+        }
+
+        composable(route = Destination.SettingsScreen.route) {
+            SettingsScreen(navRouter)
         }
 
         composable(route = "${Destination.DetailScreen.route}/{id}",

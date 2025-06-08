@@ -55,6 +55,7 @@ dependencies {
     implementation(libs.androidx.lifecycle.runtime.compose.android)
     implementation(libs.androidx.room.runtime.android)
     implementation(libs.play.services.location)
+    implementation(libs.androidx.datastore.core.android)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -84,6 +85,8 @@ dependencies {
     implementation(libs.googlemap.foundation)
 
     implementation(libs.accompanist.permissions)
+
+    implementation("androidx.datastore:datastore-preferences:1.0.0")
 
 
     implementation("io.github.vanpra.compose-material-dialogs:datetime:0.9.0")
