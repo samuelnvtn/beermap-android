@@ -25,8 +25,10 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -44,6 +46,7 @@ import com.google.maps.android.compose.rememberCameraPositionState
 import com.mendelu.xnovotn1.beerbook.database.Beer
 import com.mendelu.xnovotn1.beerbook.navigation.Destination
 import com.mendelu.xnovotn1.beerbook.navigation.INavigationRouter
+import com.mendelu.xnovotn1.beerbook.permissions.LocationPermissionHandler
 import com.mendelu.xnovotn1.beerbook.ui.elements.BaseScreen
 import com.mendelu.xnovotn1.beerbook.ui.elements.BottomNavBar
 import com.mendelu.xnovotn1.beerbook.ui.elements.PlaceholderScreenContent
@@ -123,6 +126,13 @@ fun DetailContent(
     beer: Beer,
     navigation: INavigationRouter,
 ){
+    var hasLocationPermission by remember { mutableStateOf(false) }
+
+    LocationPermissionHandler(
+        onPermissionGranted = { hasLocationPermission = true },
+        onPermissionDenied = { hasLocationPermission = false }
+    )
+
     Column(modifier = Modifier.padding(paddingValues).padding(16.dp)) {
         Text(
             text = beer.name,
@@ -174,7 +184,7 @@ fun DetailContent(
             GoogleMap(
                 modifier = Modifier.matchParentSize(),
                 cameraPositionState = cameraPositionState,
-                properties = MapProperties(isMyLocationEnabled = true)
+                properties = MapProperties(isMyLocationEnabled = hasLocationPermission)
             ) {
                 Marker(
                     state = MarkerState(position = LatLng(beer.latitude, beer.longitude)),

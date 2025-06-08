@@ -161,6 +161,7 @@ fun AddEditBeerScreenContent(
     val viewModel = hiltViewModel<AddEditBeerViewModel>()
     val isBeerLoaded by viewModel.isBeerLoaded.collectAsState()
 
+
     LaunchedEffect(data.beer.latitude, data.beer.longitude, isBeerLoaded) {
         if (!isBeerLoaded) {
 
