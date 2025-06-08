@@ -106,7 +106,7 @@ fun BeersListScreen(
                     contentDescription = "Settings"
                 )
             }},
-        topBarText = "Beers",
+        topBarText = (stringResource(R.string.beers)),
         floatingActionButton = {
             FloatingActionButton(onClick = {
                 navigation.navigateToAddEditBeer(id = null)

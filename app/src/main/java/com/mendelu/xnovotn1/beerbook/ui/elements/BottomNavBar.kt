@@ -14,6 +14,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.stringResource
+import com.mendelu.xnovotn1.beerbook.R
 import com.mendelu.xnovotn1.beerbook.navigation.Destination
 import com.mendelu.xnovotn1.beerbook.navigation.INavigationRouter
 import com.mendelu.xnovotn1.beerbook.ui.theme.barColor
@@ -30,10 +32,10 @@ fun BottomNavBar(
     navigation: INavigationRouter
 ) {
     val items = listOf(
-        BottomNavItem(Icons.Default.Menu, "List", Destination.BeersListScreen),
-        BottomNavItem(Icons.Default.LocationOn, "Map", Destination.MapScreen),
-        BottomNavItem(Icons.Default.DateRange, "Calendar", Destination.CalendarScreen),
-        BottomNavItem(Icons.Default.Person, "Stats", Destination.StatsScreen),
+        BottomNavItem(Icons.Default.Menu, (stringResource(R.string.list)), Destination.BeersListScreen),
+        BottomNavItem(Icons.Default.LocationOn, (stringResource(R.string.map)), Destination.MapScreen),
+        BottomNavItem(Icons.Default.DateRange, (stringResource(R.string.cal)), Destination.CalendarScreen),
+        BottomNavItem(Icons.Default.Person, (stringResource(R.string.beer_stats)), Destination.StatsScreen),
     )
 
     NavigationBar(

@@ -19,6 +19,20 @@
     <string name="stat4">Nejvíc piv v jednom dni</string>
     <string name="stat4.5">piv dne</string>
     <string name="stat5">Piva za měsíc</string>
+    <string name="clickme">Klikni na den pro zobrazení záznamů</string>
+    <string name="beer_emptycal">Tenhle den se očividně nepilo</string>
+    <string name="cal">Kalendář</string>
+    <string name="map">Mapa</string>
+    <string name="list">Seznam</string>
+    <string name="settings">Nastavení</string>
+    <string name="beers">Piva</string>
+    <string name="edit_beer">Upravit pivo</string>
+
+
+
+
+
+
 
 
 

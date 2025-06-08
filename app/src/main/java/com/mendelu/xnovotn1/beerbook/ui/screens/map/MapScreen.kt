@@ -19,6 +19,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
@@ -33,6 +34,7 @@ import com.google.maps.android.compose.MapsComposeExperimentalApi
 import com.google.maps.android.compose.Marker
 import com.google.maps.android.compose.MarkerState
 import com.google.maps.android.compose.rememberCameraPositionState
+import com.mendelu.xnovotn1.beerbook.R
 import com.mendelu.xnovotn1.beerbook.database.Beer
 import com.mendelu.xnovotn1.beerbook.navigation.Destination
 import com.mendelu.xnovotn1.beerbook.navigation.INavigationRouter
@@ -88,7 +90,7 @@ fun MapScreen(
                 )
             }
         },
-        topBarText = "Map",
+        topBarText = (stringResource(R.string.map)),
         floatingActionButton = {
             FloatingActionButton(onClick = {
                 navigation.navigateToAddEditBeer(null)

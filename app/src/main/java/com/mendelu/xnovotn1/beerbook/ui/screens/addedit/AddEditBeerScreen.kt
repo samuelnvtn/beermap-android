@@ -115,7 +115,7 @@ fun AddEditBeerScreen(
 
     BaseScreen(
         showLoading = state.value.loading,
-        topBarText = stringResource(R.string.add_beer),
+        topBarText = if (id == null) stringResource(R.string.add_beer) else stringResource(R.string.edit_beer),
         onBackClick = {
             navigation.returnBack()
         },
