@@ -226,13 +226,6 @@ fun AddEditBeerScreenContent(
                 .padding(top = 16.dp, bottom = 16.dp, start = 16.dp, end = 16.dp)
         ) {
 
-            LaunchedEffect(cameraPositionState.isMoving) {
-                if (!cameraPositionState.isMoving) {
-                    val target = cameraPositionState.position.target
-                    actions.onLatLngChange(target.latitude, target.longitude)
-                }
-            }
-
             Text(
                 text = stringResource(R.string.beer_name),
                 modifier = Modifier.padding(top = 8.dp, bottom = 8.dp),

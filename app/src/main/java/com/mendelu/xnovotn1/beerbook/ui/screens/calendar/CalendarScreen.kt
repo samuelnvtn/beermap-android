@@ -105,8 +105,9 @@ fun CalendarScreen(
         },
         placeholderScreenContent = if (beers.size == 0) {
             PlaceholderScreenContent(
-                //image = R.drawable.undraw_chore_list_ylw0,
-                text = "Nemáte žádné záznamy")
+                image = R.drawable.undraw_cal,
+                text = stringResource(R.string.beer_emptylist)
+            )
         } else null,
 
         actions = {
