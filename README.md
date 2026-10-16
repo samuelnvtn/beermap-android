@@ -4,11 +4,11 @@ A native Android app designed to help users track and document their beer tastin
 
 ## Features
 
-* **Detailed Logging:** Add new beer entries with specific details including the place, timestamp, personal description, and a 5-star rating[cite: 11].
-* **Interactive Map:** Browse all your saved tasting locations across the city using an integrated Google Map[cite: 12].
-* **Calendar View:** Easily navigate through your tasting history using a monthly calendar component that highlights days with logged entries[cite: 13].
-* **Personal Statistics:** Track your drinking habits with automated stats, including your total beers logged, most frequently drank beer, average rating, and a monthly breakdown[cite: 9].
-* **Organized List:** View a chronological feed of all your beer logs with locations and ratings at a glance[cite: 10].
+* **Detailed Logging:** Add new beer entries with specific details including the place, timestamp, personal description, and a 5-star rating.
+* **Interactive Map:** Browse all your saved tasting locations across the city using an integrated Google Map.
+* **Calendar View:** Easily navigate through your tasting history using a monthly calendar component that highlights days with logged entries.
+* **Personal Statistics:** Track your drinking habits with automated stats, including your total beers logged, most frequently drank beer, average rating, and a monthly breakdown.
+* **Organized List:** View a chronological feed of all your beer logs with locations and ratings at a glance.
 
 ## Screenshots
 
