@@ -17,7 +17,7 @@
         android:theme="@style/Theme.BeerBook"
         tools:targetApi="31">
         <meta-data android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyC0OTiwAcTtmI7rCH90N2m0IhR7Lk5RIRA"/>
+            android:value="YourApiKey"/>
         <activity
             android:name="com.mendelu.xnovotn1.beerbook.MainActivity"
             android:exported="true"
